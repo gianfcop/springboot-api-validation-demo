@@ -12,11 +12,10 @@ import com.starterkit.api.validation.groups.OnCreate;
 import com.starterkit.api.validation.groups.OnUpdate;
 
 import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.media.ArraySchema;
-import io.swagger.v3.oas.annotations.media.Content;
-import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.enums.ParameterIn;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.constraints.Positive;
@@ -43,16 +42,10 @@ public class ProductController {
     @Operation(
         summary = "Create a new product",
         description = "Creates a product using a ProductRequest DTO",
-        requestBody = @io.swagger.v3.oas.annotations.parameters.RequestBody(
-            description = "Product details",
-            required = true,
-            content = @Content(schema = @Schema(implementation = ProductRequest.class))
-        ),
         responses = {
-            @ApiResponse(responseCode = "201", description = "Product created successfully",
-                content = @Content(schema = @Schema(implementation = ProductResponse.class))),
-            @ApiResponse(responseCode = "400", description = "Validation error"),
-            @ApiResponse(responseCode = "404", description = "Category not found")
+            @ApiResponse(responseCode = "201", description = "Product created successfully"),
+            @ApiResponse(responseCode = "400", description = "Validation error", content = @Content(schema = @Schema(hidden = true))),
+            @ApiResponse(responseCode = "404", description = "Category not found", content = @Content(schema = @Schema(hidden = true)))
         }
     )
     @PostMapping(consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
@@ -65,11 +58,7 @@ public class ProductController {
 
     @Operation(
         summary = "Get all products",
-        description = "Retrieves a list of all products",
-        responses = {
-            @ApiResponse(responseCode = "200", description = "Successful retrieval",
-                content = @Content(array = @ArraySchema(schema = @Schema(implementation = ProductResponse.class))))
-        }
+        description = "Retrieves a list of all products"
     )
     @GetMapping(produces = APPLICATION_JSON_VALUE)
     public ResponseEntity<List<ProductResponse>> getAllProducts() {
@@ -82,16 +71,10 @@ public class ProductController {
         parameters = {
           @Parameter(description = "ID of the product to update", in = ParameterIn.PATH, example = "101")  
         },
-        requestBody = @io.swagger.v3.oas.annotations.parameters.RequestBody(
-            description = "Updated product details",
-            required = true,
-            content = @Content(schema = @Schema(implementation = ProductRequest.class))
-        ),
         responses = {
-            @ApiResponse(responseCode = "200", description = "Product updated successfully",
-                content = @Content(schema = @Schema(implementation = ProductResponse.class))),
-            @ApiResponse(responseCode = "400", description = "Validation error"),
-            @ApiResponse(responseCode = "404", description = "Product or Category not found")
+            @ApiResponse(responseCode = "200", description = "Product updated successfully"),
+            @ApiResponse(responseCode = "400", description = "Validation error", content = @Content(schema = @Schema(hidden = true))),
+            @ApiResponse(responseCode = "404", description = "Product or Category not found", content = @Content(schema = @Schema(hidden = true)))
         }
     )
     @PutMapping(value = "/{id}", consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
