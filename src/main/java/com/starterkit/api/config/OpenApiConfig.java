@@ -19,9 +19,9 @@ public class OpenApiConfig {
     public OpenAPI customOpenAPI() {
         return new OpenAPI()
             .info(new Info()
-                .title("StarterKit API")
+                .title("Spring Boot Validation API")
                 .version("1.0.0")
-                .description("Spring Boot Starter Kit with JWT Authentication")
+                .description("A Spring Boot starter showcasing advanced DTO validation, custom constraints, and centralized error handling for clean and robust REST APIs.")
                 .contact(new Contact()
                     .name("Your Name")
                     .email("contact@example.com"))
